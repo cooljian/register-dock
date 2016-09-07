@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tjcloud.stadium.dao.impl.StadiumItemDaoImpl">
+	<sql id="t_stadiumItem">stadium_item</sql>
+
+	<insert id="insert" parameterType="stadiumItem">
+		<selectKey resultType="string" order="BEFORE" keyProperty="id">
+			SELECT REPLACE(UUID(), '-', '') AS ID FROM DUAL
+		</selectKey>
+		INSERT INTO <include refid="t_stadiumItem" /> (ID,
+		<trim suffixOverrides=",">
+			<if test="tenantId != null">
+				tenantId,
+			</if>
+			<if test="stadiumId != null">
+				stadiumId,
+			</if>
+			<if test="stadiumName != null">
+				stadiumName,
+			</if>
+			<if test="bookMode != null">
+				bookMode,
+			</if>
+			<if test="sportType != null">
+				sportType,
+			</if>
+			<if test="sportTypeCode != null">
+				sportTypeCode,
+			</if>
+			<if test="contactName != null">
+				contactName,
+			</if>
+			<if test="telephone != null">
+				telephone,
+			</if>
+			<if test="material != null">
+				material,
+			</if>
+			<if test="bookPhone != null">
+				bookPhone,
+			</if>
+			<if test="noticePhone != null">
+				noticePhone,
+			</if>
+			<if test="allowBookingTenantDays != null">
+				allowBookingTenantDays,
+			</if>
+			<if test="allowBookingPlatformDays != null">
+				allowBookingPlatformDays,
+			</if>
+			<if test="cancelBookingTenantDays != null">
+				cancelBookingTenantDays,
+			</if>
+			<if test="cancelBookingPlatformDays != null">
+				cancelBookingPlatformDays,
+			</if>
+			<if test="tagLabel != null">
+				tagLabel,
+			</if>
+			<if test="platformOnline != null">
+				platformOnline,
+			</if>
+			<if test="dianpingOnline != null">
+				dianpingOnline,
+			</if>
+			<if test="online != null">
+				online,
+			</if>
+			<if test="description != null">
+				description,
+			</if>
+			<if test="disabled != null">
+				disabled,
+			</if>
+			<include refid="com.tjcloud.data.mapper.inscolumn"/>
+		</trim>
+		) VALUES (#{id},
+		<trim suffixOverrides=",">
+			<if test="tenantId != null">
+				#{tenantId},
+			</if>
+			<if test="stadiumId != null">
+				#{stadiumId},
+			</if>
+			<if test="stadiumName != null">
+				#{stadiumName},
+			</if>
+			<if test="bookMode != null">
+				#{bookMode},
+			</if>
+			<if test="sportType != null">
+				#{sportType},
+			</if>
+			<if test="sportTypeCode != null">
+				#{sportTypeCode},
+			</if>
+			<if test="contactName != null">
+				#{contactName},
+			</if>
+			<if test="telephone != null">
+				#{telephone},
+			</if>
+			<if test="material != null">
+				#{material},
+			</if>
+			<if test="bookPhone != null">
+				#{bookPhone},
+			</if>
+			<if test="noticePhone != null">
+				#{noticePhone},
+			</if>
+			<if test="allowBookingTenantDays != null">
+				#{allowBookingTenantDays},
+			</if>
+			<if test="allowBookingPlatformDays != null">
+				#{allowBookingPlatformDays},
+			</if>
+			<if test="cancelBookingTenantDays != null">
+				#{cancelBookingTenantDays},
+			</if>
+			<if test="cancelBookingPlatformDays != null">
+				#{cancelBookingPlatformDays},
+			</if>
+			<if test="tagLabel != null">
+				#{tagLabel},
+			</if>
+			<if test="platformOnline != null">
+				#{platformOnline},
+			</if>
+			<if test="dianpingOnline != null">
+				#{dianpingOnline},
+			</if>
+			<if test="online != null">
+				#{online},
+			</if>
+			<if test="description != null">
+				#{description},
+			</if>
+			<if test="disabled != null">
+				#{disabled},
+			</if>
+			<include refid="com.tjcloud.data.mapper.insparam"/>
+		</trim>
+		)
+	</insert>
+
+	<update id="update" parameterType="stadiumItem">
+		UPDATE <include refid="t_stadiumItem" />
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="tenantId != null">
+				tenantId = #{tenantId},
+			</if>
+			<if test="stadiumId != null">
+				stadiumId = #{stadiumId},
+			</if>
+			<if test="stadiumName != null">
+				stadiumName = #{stadiumName},
+			</if>
+			<if test="bookMode != null">
+				bookMode = #{bookMode},
+			</if>
+			<if test="sportType != null">
+				sportType = #{sportType},
+			</if>
+			<if test="sportTypeCode != null">
+				sportTypeCode = #{sportTypeCode},
+			</if>
+			<if test="contactName != null">
+				contactName = #{contactName},
+			</if>
+			<if test="telephone != null">
+				telephone = #{telephone},
+			</if>
+			<if test="material != null">
+				material = #{material},
+			</if>
+			<if test="bookPhone != null">
+				bookPhone = #{bookPhone},
+			</if>
+			<if test="noticePhone != null">
+				noticePhone = #{noticePhone},
+			</if>
+			<if test="allowBookingTenantDays != null">
+				allowBookingTenantDays = #{allowBookingTenantDays},
+			</if>
+			<if test="allowBookingPlatformDays != null">
+				allowBookingPlatformDays = #{allowBookingPlatformDays},
+			</if>
+			<if test="cancelBookingTenantDays != null">
+				cancelBookingTenantDays = #{cancelBookingTenantDays},
+			</if>
+			<if test="cancelBookingPlatformDays != null">
+				cancelBookingPlatformDays = #{cancelBookingPlatformDays},
+			</if>
+			<if test="tagLabel != null">
+				tagLabel = #{tagLabel},
+			</if>
+			<if test="platformOnline != null">
+				platformOnline = #{platformOnline},
+			</if>
+			<if test="dianpingOnline != null">
+				dianpingOnline = #{dianpingOnline},
+			</if>
+			<if test="online != null">
+				online = #{online},
+			</if>
+			<if test="description != null">
+				description = #{description},
+			</if>
+			<if test="disabled != null">
+				disabled = #{disabled},
+			</if>
+			<include refid="com.tjcloud.data.mapper.update"/>
+		</trim>
+		 WHERE id = #{id}
+	</update>
+
+	<update id="lock" parameterType="string">
+		UPDATE <include refid="t_stadiumItem" />
+		   SET LOCKED = 1
+		 WHERE LOCKED = 0
+		   AND id = #{id}
+	</update>
+
+	<update id="unlock" parameterType="string">
+		UPDATE <include refid="t_stadiumItem" />
+		   SET LOCKED = 0
+		 WHERE LOCKED = 1
+		   AND id = #{id}
+	</update>
+
+	<delete id="deleteById" parameterType="string">
+		DELETE FROM <include refid="t_stadiumItem" />
+		 WHERE id = #{id}
+	</delete>
+
+	<select id="getById" parameterType="string" resultType="stadiumItem">
+		SELECT * FROM <include refid="t_stadiumItem" />
+		 WHERE id = #{id}
+	</select>
+
+	<select id="listBy" parameterType="map" resultType="stadiumItem">
+		<include refid="listSQL" />
+	</select>
+
+	<select id="listPage" parameterType="map" resultType="stadiumItem">
+		<include refid="listSQL" />
+		<if test="pageFirst != null">
+			LIMIT #{pageFirst}, #{pageSize}
+		</if>
+	</select>
+
+	<select id="listPageCount" parameterType="map" resultType="long">
+		SELECT COUNT(1) FROM <include refid="t_stadiumItem" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+
+	<sql id="listSQL">
+		SELECT * FROM <include refid="t_stadiumItem" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+		ORDER BY id DESC
+	</sql>
+   
+	<sql id="condition_sql">
+		<trim prefixOverrides="AND | OR">
+			<if test="id != null">
+				AND id = #{id}
+			</if>
+			<if test="tenantId != null">
+				AND tenantId = #{tenantId}
+			</if>
+			<if test="stadiumId != null">
+				AND stadiumId = #{stadiumId}
+			</if>
+			<if test="stadiumName != null">
+				AND stadiumName = #{stadiumName}
+			</if>
+			<if test="bookMode != null">
+				AND bookMode = #{bookMode}
+			</if>
+			<if test="sportType != null">
+				AND sportType = #{sportType}
+			</if>
+			<if test="sportTypeCode != null">
+				AND sportTypeCode = #{sportTypeCode}
+			</if>
+			<if test="contactName != null">
+				AND contactName = #{contactName}
+			</if>
+			<if test="telephone != null">
+				AND telephone = #{telephone}
+			</if>
+			<if test="material != null">
+				AND material = #{material}
+			</if>
+			<if test="bookPhone != null">
+				AND bookPhone = #{bookPhone}
+			</if>
+			<if test="noticePhone != null">
+				AND noticePhone = #{noticePhone}
+			</if>
+			<if test="allowBookingTenantDays != null">
+				AND allowBookingTenantDays = #{allowBookingTenantDays}
+			</if>
+			<if test="allowBookingPlatformDays != null">
+				AND allowBookingPlatformDays = #{allowBookingPlatformDays}
+			</if>
+			<if test="cancelBookingTenantDays != null">
+				AND cancelBookingTenantDays = #{cancelBookingTenantDays}
+			</if>
+			<if test="cancelBookingPlatformDays != null">
+				AND cancelBookingPlatformDays = #{cancelBookingPlatformDays}
+			</if>
+			<if test="tagLabel != null">
+				AND tagLabel = #{tagLabel}
+			</if>
+			<if test="platformOnline != null">
+				AND platformOnline = #{platformOnline}
+			</if>
+			<if test="dianpingOnline != null">
+				AND dianpingOnline = #{dianpingOnline}
+			</if>
+			<if test="online != null">
+				AND online = #{online}
+			</if>
+			<if test="description != null">
+				AND description = #{description}
+			</if>
+			<if test="disabled != null">
+				AND disabled = #{disabled}
+			</if>
+			<include refid="com.tjcloud.data.mapper.condition"/>
+		</trim>
+	</sql>
+</mapper>

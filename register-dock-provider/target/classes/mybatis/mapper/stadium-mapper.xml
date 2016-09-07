@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tjcloud.stadium.dao.impl.StadiumDaoImpl">
+	<sql id="t_stadium">stadium</sql>
+
+	<insert id="insert" parameterType="stadium">
+		<selectKey resultType="string" order="BEFORE" keyProperty="id">
+			SELECT REPLACE(UUID(), '-', '') AS ID FROM DUAL
+		</selectKey>
+		INSERT INTO <include refid="t_stadium" /> (ID,
+		<trim suffixOverrides=",">
+			<if test="tenantId != null">
+				tenantId,
+			</if>
+			<if test="stadiumName != null">
+				stadiumName,
+			</if>
+			<if test="longitude != null">
+				longitude,
+			</if>
+			<if test="latitude != null">
+				latitude,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="floor != null">
+				floor,
+			</if>
+			<if test="province != null">
+				province,
+			</if>
+			<if test="city != null">
+				city,
+			</if>
+			<if test="district != null">
+				district,
+			</if>
+			<if test="mainPictureUrl != null">
+				mainPictureUrl,
+			</if>
+			<if test="area != null">
+				area,
+			</if>
+			<if test="contactName != null">
+				contactName,
+			</if>
+			<if test="telephone != null">
+				telephone,
+			</if>
+			<if test="licenseUrl != null">
+				licenseUrl,
+			</if>
+			<if test="introduction != null">
+				introduction,
+			</if>
+			<if test="disabled != null">
+				disabled,
+			</if>
+			<include refid="com.tjcloud.data.mapper.inscolumn"/>
+		</trim>
+		) VALUES (#{id},
+		<trim suffixOverrides=",">
+			<if test="tenantId != null">
+				#{tenantId},
+			</if>
+			<if test="stadiumName != null">
+				#{stadiumName},
+			</if>
+			<if test="longitude != null">
+				#{longitude},
+			</if>
+			<if test="latitude != null">
+				#{latitude},
+			</if>
+			<if test="address != null">
+				#{address},
+			</if>
+			<if test="floor != null">
+				#{floor},
+			</if>
+			<if test="province != null">
+				#{province},
+			</if>
+			<if test="city != null">
+				#{city},
+			</if>
+			<if test="district != null">
+				#{district},
+			</if>
+			<if test="mainPictureUrl != null">
+				#{mainPictureUrl},
+			</if>
+			<if test="area != null">
+				#{area},
+			</if>
+			<if test="contactName != null">
+				#{contactName},
+			</if>
+			<if test="telephone != null">
+				#{telephone},
+			</if>
+			<if test="licenseUrl != null">
+				#{licenseUrl},
+			</if>
+			<if test="introduction != null">
+				#{introduction},
+			</if>
+			<if test="disabled != null">
+				#{disabled},
+			</if>
+			<include refid="com.tjcloud.data.mapper.insparam"/>
+		</trim>
+		)
+	</insert>
+
+	<update id="update" parameterType="stadium">
+		UPDATE <include refid="t_stadium" />
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="tenantId != null">
+				tenantId = #{tenantId},
+			</if>
+			<if test="stadiumName != null">
+				stadiumName = #{stadiumName},
+			</if>
+			<if test="longitude != null">
+				longitude = #{longitude},
+			</if>
+			<if test="latitude != null">
+				latitude = #{latitude},
+			</if>
+			<if test="address != null">
+				address = #{address},
+			</if>
+			<if test="floor != null">
+				floor = #{floor},
+			</if>
+			<if test="province != null">
+				province = #{province},
+			</if>
+			<if test="city != null">
+				city = #{city},
+			</if>
+			<if test="province != null">
+				province = #{province},
+			</if>
+			<if test="mainPictureUrl != null">
+				mainPictureUrl = #{mainPictureUrl},
+			</if>
+			<if test="area != null">
+				area = #{area},
+			</if>
+			<if test="contactName != null">
+				contactName = #{contactName},
+			</if>
+			<if test="telephone != null">
+				telephone = #{telephone},
+			</if>
+			<if test="licenseUrl != null">
+				licenseUrl = #{licenseUrl},
+			</if>
+			<if test="introduction != null">
+				introduction = #{introduction},
+			</if>
+			<if test="disabled != null">
+				disabled = #{disabled},
+			</if>
+			<include refid="com.tjcloud.data.mapper.update"/>
+		</trim>
+		 WHERE id = #{id}
+	</update>
+
+	<update id="lock" parameterType="string">
+		UPDATE <include refid="t_stadium" />
+		   SET LOCKED = 1
+		 WHERE LOCKED = 0
+		   AND id = #{id}
+	</update>
+
+	<update id="unlock" parameterType="string">
+		UPDATE <include refid="t_stadium" />
+		   SET LOCKED = 0
+		 WHERE LOCKED = 1
+		   AND id = #{id}
+	</update>
+
+	<delete id="deleteById" parameterType="string">
+		DELETE FROM <include refid="t_stadium" />
+		 WHERE id = #{id}
+	</delete>
+
+	<select id="getById" parameterType="string" resultType="stadium">
+		SELECT * FROM <include refid="t_stadium" />
+		 WHERE id = #{id}
+	</select>
+
+	<select id="listBy" parameterType="map" resultType="stadium">
+		<include refid="listSQL" />
+	</select>
+
+	<select id="listPage" parameterType="map" resultType="stadium">
+		<include refid="listSQL" />
+		<if test="pageFirst != null">
+			LIMIT #{pageFirst}, #{pageSize}
+		</if>
+	</select>
+
+	<select id="listPageCount" parameterType="map" resultType="long">
+		SELECT COUNT(1) FROM <include refid="t_stadium" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+
+	<sql id="listSQL">
+		SELECT * FROM <include refid="t_stadium" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+		ORDER BY id DESC
+	</sql>
+   
+	<sql id="condition_sql">
+		<trim prefixOverrides="AND | OR">
+			<if test="id != null">
+				AND id = #{id}
+			</if>
+			<if test="tenantId != null">
+				AND tenantId = #{tenantId}
+			</if>
+			<if test="stadiumName != null">
+				AND stadiumName = #{stadiumName}
+			</if>
+			<if test="longitude != null">
+				AND longitude = #{longitude}
+			</if>
+			<if test="latitude != null">
+				AND latitude = #{latitude}
+			</if>
+			<if test="address != null">
+				AND address = #{address}
+			</if>
+			<if test="floor != null">
+				AND floor = #{floor}
+			</if>
+			<if test="province != null">
+				AND province = #{province}
+			</if>
+			<if test="city != null">
+				AND city = #{city}
+			</if>
+			<if test="district != null">
+				AND district = #{district}
+			</if>
+			<if test="mainPictureUrl != null">
+				AND mainPictureUrl = #{mainPictureUrl}
+			</if>
+			<if test="area != null">
+				AND area = #{area}
+			</if>
+			<if test="contactName != null">
+				AND contactName = #{contactName}
+			</if>
+			<if test="telephone != null">
+				AND telephone = #{telephone}
+			</if>
+			<if test="licenseUrl != null">
+				AND licenseUrl = #{licenseUrl}
+			</if>
+			<if test="introduction != null">
+				AND introduction = #{introduction}
+			</if>
+			<if test="disabled != null">
+				AND disabled = #{disabled}
+			</if>
+			<include refid="com.tjcloud.data.mapper.condition"/>
+		</trim>
+	</sql>
+</mapper>

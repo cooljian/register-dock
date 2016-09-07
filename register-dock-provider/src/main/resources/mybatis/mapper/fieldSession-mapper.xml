@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tjcloud.stadium.dao.impl.FieldSessionDaoImpl">
+	<sql id="t_fieldSession">field_session</sql>
+
+	<insert id="insert" parameterType="fieldSession">
+		<selectKey resultType="string" order="BEFORE" keyProperty="id">
+			SELECT REPLACE(UUID(), '-', '')
+		</selectKey>
+		INSERT INTO <include refid="t_fieldSession" /> (ID,
+		<trim suffixOverrides=",">
+			<if test="fieldId != null">
+				fieldId,
+			</if>
+			<if test="beginTime != null">
+				beginTime,
+			</if>
+			<if test="endTime != null">
+				endTime,
+			</if>
+			<if test="dayOfWeek != null">
+				dayOfWeek,
+			</if>
+			<if test="always != null">
+				always,
+			</if>
+			<include refid="com.tjcloud.data.mapper.inscolumn"/>
+		</trim>
+		) VALUES (#{id},
+		<trim suffixOverrides=",">
+			<if test="fieldId != null">
+				#{fieldId},
+			</if>
+			<if test="beginTime != null">
+				#{beginTime},
+			</if>
+			<if test="endTime != null">
+				#{endTime},
+			</if>
+			<if test="dayOfWeek != null">
+				#{dayOfWeek},
+			</if>
+			<if test="always != null">
+				#{always},
+			</if>
+			<include refid="com.tjcloud.data.mapper.insparam"/>
+		</trim>
+		)
+	</insert>
+
+	<update id="update" parameterType="fieldSession">
+		UPDATE <include refid="t_fieldSession" />
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="fieldId != null">
+				fieldId = #{fieldId},
+			</if>
+			<if test="beginTime != null">
+				beginTime = #{beginTime},
+			</if>
+			<if test="endTime != null">
+				endTime = #{endTime},
+			</if>
+			<if test="dayOfWeek != null">
+				dayOfWeek = #{dayOfWeek},
+			</if>
+			<if test="always != null">
+				always = #{always},
+			</if>
+			<include refid="com.tjcloud.data.mapper.update"/>
+		</trim>
+		 WHERE id = #{id}
+	</update>
+
+	<update id="lock" parameterType="string">
+		UPDATE <include refid="t_fieldSession" />
+		   SET LOCKED = 1
+		 WHERE LOCKED = 0
+		   AND id = #{id}
+	</update>
+
+	<update id="unlock" parameterType="string">
+		UPDATE <include refid="t_fieldSession" />
+		   SET LOCKED = 0
+		 WHERE LOCKED = 1
+		   AND id = #{id}
+	</update>
+
+	<delete id="deleteById" parameterType="string">
+		DELETE FROM <include refid="t_fieldSession" />
+		 WHERE id = #{id}
+	</delete>
+
+	<select id="getById" parameterType="string" resultType="fieldSession">
+		SELECT * FROM <include refid="t_fieldSession" />
+		 WHERE id = #{id}
+	</select>
+
+	<select id="listBy" parameterType="map" resultType="fieldSession">
+		<include refid="listSQL" />
+	</select>
+
+	<select id="listPage" parameterType="map" resultType="fieldSession">
+		<include refid="listSQL" />
+		<if test="pageFirst != null">
+			LIMIT #{pageFirst}, #{pageSize}
+		</if>
+	</select>
+
+	<select id="listPageCount" parameterType="map" resultType="long">
+		SELECT COUNT(1) FROM <include refid="t_fieldSession" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+
+	<sql id="listSQL">
+		SELECT * FROM <include refid="t_fieldSession" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+		ORDER BY id DESC
+	</sql>
+   
+	<sql id="condition_sql">
+		<trim prefixOverrides="AND | OR">
+			<if test="id != null">
+				AND id = #{id}
+			</if>
+			<if test="fieldId != null">
+				AND fieldId = #{fieldId}
+			</if>
+			<if test="beginTime != null">
+				AND beginTime = #{beginTime}
+			</if>
+			<if test="endTime != null">
+				AND endTime = #{endTime}
+			</if>
+			<if test="dayOfWeek != null">
+				AND dayOfWeek = #{dayOfWeek}
+			</if>
+			<if test="always != null">
+				AND always = #{always}
+			</if>
+			<include refid="com.tjcloud.data.mapper.condition"/>
+		</trim>
+	</sql>
+</mapper>

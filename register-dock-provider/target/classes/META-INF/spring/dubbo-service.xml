@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+       	 http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context.xsd
+		 http://code.alibabatech.com/schema/dubbo
+         http://code.alibabatech.com/schema/dubbo/dubbo.xsd" default-autowire="byName">
+	
+	<dubbo:application name="${dubbo.application.name}" owner="${dubbo.application.owner}" organization="${dubbo.application.organization}" />
+	<dubbo:registry address="${dubbo.registry.address}" />
+	<dubbo:provider timeout="${dubbo.provider.timeout}" retries="${dubbo.provider.retries}" />
+
+	<dubbo:annotation package="com.tjcloud.stadium" />
+
+	<dubbo:protocol name="dubbo" serialization="kryo" />
+
+	<dubbo:service interface="com.tjcloud.stadium.service.ImageAssetService" ref="imageAssetService" protocol="dubbo" version="3.0.0" />
+	<dubbo:service interface="com.tjcloud.stadium.service.StadiumService" ref="stadiumService" protocol="dubbo" version="3.0.0" />
+	<dubbo:service interface="com.tjcloud.stadium.service.StadiumItemService" ref="stadiumItemService" protocol="dubbo" version="3.0.0" />
+	<dubbo:service interface="com.tjcloud.stadium.service.StadiumItemOpeningtimeDayService" ref="stadiumItemOpeningtimeDayService" protocol="dubbo" version="3.0.0" />
+	<dubbo:service interface="com.tjcloud.stadium.service.FieldService" ref="fieldService" protocol="dubbo" version="3.0.0" />
+	<dubbo:service interface="com.tjcloud.stadium.service.FieldResourceService" ref="fieldResourceService" protocol="dubbo" version="3.0.0" />
+	<dubbo:service interface="com.tjcloud.stadium.service.FieldSessionService" ref="fieldSessionService" protocol="dubbo" version="3.0.0" />
+	<dubbo:service interface="com.tjcloud.stadium.service.FieldShareService" ref="fieldShareService" protocol="dubbo" version="3.0.0" />
+	<dubbo:service interface="com.tjcloud.stadium.service.StadiumTicketService" ref="stadiumTicketService" protocol="dubbo" version="3.0.0" />
+	<dubbo:service interface="com.tjcloud.stadium.service.StadiumItemOpeningtimeService" ref="stadiumItemOpeningtimeService" protocol="dubbo" version="3.0.0" />
+	<dubbo:service interface="com.tjcloud.stadium.service.StadiumItemOpeningtimeDateService" ref="stadiumItemOpeningtimeDateService" protocol="dubbo" version="3.0.0" />
+	<dubbo:service interface="com.tjcloud.stadium.service.StadiumItemOpeningtimeDayService" ref="stadiumItemOpeningtimeDayService" protocol="dubbo" version="3.0.0" />
+	<dubbo:service interface="com.tjcloud.stadium.service.PriceRuleDateService" ref="priceRuleDateService" protocol="dubbo" version="3.0.0" />
+	<dubbo:service interface="com.tjcloud.stadium.service.PriceRuleFieldService" ref="priceRuleFieldService" protocol="dubbo" version="3.0.0" />
+	<dubbo:service interface="com.tjcloud.stadium.service.PriceRuleMainService" ref="priceRuleMainService" protocol="dubbo" version="3.0.0" />
+	<dubbo:service interface="com.tjcloud.stadium.service.PriceRuleMemberService" ref="priceRuleMemberService" protocol="dubbo" version="3.0.0" />
+	<dubbo:service interface="com.tjcloud.stadium.service.FieldShareDetailService" ref="fieldShareDetailService" protocol="dubbo" version="3.0.0" />
+	<dubbo:service interface="com.tjcloud.stadium.service.FieldsPriceService" ref="fieldsPriceService" protocol="dubbo" version="3.0.0" />
+	<dubbo:service interface="com.tjcloud.stadium.service.FieldHoldonRuleService" ref="fieldHoldonRuleService" protocol="dubbo" version="3.0.0" />
+	<dubbo:service interface="com.tjcloud.stadium.service.FieldHoldonRuleItemService" ref="fieldHoldonRuleItemService" protocol="dubbo" version="3.0.0" />
+	<dubbo:service interface="com.tjcloud.stadium.service.HoldOnFieldResourceService" ref="holdOnFieldResourceService" protocol="dubbo" version="3.0.0" />
+</beans>

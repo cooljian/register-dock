@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tjcloud.stadium.dao.impl.FieldShareDetailDaoImpl">
+	<sql id="t_fieldShareDetail">field_share_detail</sql>
+
+	<insert id="insert" parameterType="fieldShareDetail">
+		<selectKey resultType="string" order="BEFORE" keyProperty="id">
+			SELECT REPLACE(UUID(), '-', '')
+		</selectKey>
+		INSERT INTO <include refid="t_fieldShareDetail" /> (ID,
+		<trim suffixOverrides=",">
+			<if test="shareId != null">
+				shareId,
+			</if>
+			<if test="manyStadiumItemId != null">
+				manyStadiumItemId,
+			</if>
+			<if test="manyFieldId != null">
+				manyFieldId,
+			</if>
+			<include refid="com.tjcloud.data.mapper.inscolumn"/>
+		</trim>
+		) VALUES (#{id},
+		<trim suffixOverrides=",">
+			<if test="shareId != null">
+				#{shareId},
+			</if>
+			<if test="manyStadiumItemId != null">
+				#{manyStadiumItemId},
+			</if>
+			<if test="manyFieldId != null">
+				#{manyFieldId},
+			</if>
+			<include refid="com.tjcloud.data.mapper.insparam"/>
+		</trim>
+		)
+	</insert>
+
+	<update id="update" parameterType="fieldShareDetail">
+		UPDATE <include refid="t_fieldShareDetail" />
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="shareId != null">
+				shareId = #{shareId},
+			</if>
+			<if test="manyStadiumItemId != null">
+				manyStadiumItemId = #{manyStadiumItemId},
+			</if>
+			<if test="manyFieldId != null">
+				manyFieldId = #{manyFieldId},
+			</if>
+			<include refid="com.tjcloud.data.mapper.update"/>
+		</trim>
+		 WHERE id = #{id}
+	</update>
+
+	<update id="lock" parameterType="string">
+		UPDATE <include refid="t_fieldShareDetail" />
+		   SET LOCKED = 1
+		 WHERE LOCKED = 0
+		   AND id = #{id}
+	</update>
+
+	<update id="unlock" parameterType="string">
+		UPDATE <include refid="t_fieldShareDetail" />
+		   SET LOCKED = 0
+		 WHERE LOCKED = 1
+		   AND id = #{id}
+	</update>
+
+	<delete id="deleteById" parameterType="string">
+		DELETE FROM <include refid="t_fieldShareDetail" />
+		 WHERE id = #{id}
+	</delete>
+	
+	<delete id="deleteByShareId" parameterType="string">
+		DELETE FROM <include refid="t_fieldShareDetail" />
+		 WHERE shareId = #{shareId}
+	</delete>
+
+	<select id="getById" parameterType="string" resultType="fieldShareDetail">
+		SELECT * FROM <include refid="t_fieldShareDetail" />
+		 WHERE id = #{id}
+	</select>
+
+	<select id="listBy" parameterType="map" resultType="fieldShareDetail">
+		<include refid="listSQL" />
+	</select>
+
+	<select id="listPage" parameterType="map" resultType="fieldShareDetail">
+		<include refid="listSQL" />
+		<if test="pageFirst != null">
+			LIMIT #{pageFirst}, #{pageSize}
+		</if>
+	</select>
+
+	<select id="listPageCount" parameterType="map" resultType="long">
+		SELECT COUNT(1) FROM <include refid="t_fieldShareDetail" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+
+	<sql id="listSQL">
+		SELECT * FROM <include refid="t_fieldShareDetail" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+		ORDER BY id DESC
+	</sql>
+   
+	<sql id="condition_sql">
+		<trim prefixOverrides="AND | OR">
+			<if test="id != null">
+				AND id = #{id}
+			</if>
+			<if test="shareId != null">
+				AND shareId = #{shareId}
+			</if>
+			<if test="manyStadiumItemId != null">
+				AND manyStadiumItemId = #{manyStadiumItemId}
+			</if>
+			<if test="manyFieldId != null">
+				AND manyFieldId = #{manyFieldId}
+			</if>
+			<include refid="com.tjcloud.data.mapper.condition"/>
+		</trim>
+	</sql>
+</mapper>
